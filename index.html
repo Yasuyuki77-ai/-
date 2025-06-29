@@ -1,0 +1,2027 @@
+<html lang="ja">
+<head>
+  <!-- =================================================================== -->
+  <!-- 基本設定 (Basic Settings) -->
+  <!-- =================================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>水谷内科 ヘルスケアゲーム - 楽しく学ぶ健康知識</title>
+
+  <!-- =================================================================== -->
+  <!-- SEO (Search Engine Optimization) -->
+  <!-- =================================================================== -->
+  <meta name="description" content="水谷内科がお届けするヘルスケアゲーム。待合室での時間を活用し、高血圧や糖尿病などの健康知識を楽しく学びながら、かわいいペットを育てましょう。">
+  <!-- このゲームページの正規URL -->
+  <link rel="canonical" href="https://xs282057.xsrv.jp/">
+  <!-- OGP (Open Graph Protocol) for Social Sharing -->
+  <meta property="og:title" content="水谷内科 ヘルスケアゲーム - 楽しく学ぶ健康知識">
+  <meta property="og:description" content="待合室で楽しく健康知識を身につけ、ペットを育てながら一緒に学びましょう。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xs282057.xsrv.jp/">
+  <meta property="og:image" content="https://xs282057.xsrv.jp/web-app-manifest-512x512.png">
+  <meta property="og:site_name" content="水谷内科 ヘルスケアゲーム">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="水谷内科 ヘルスケアゲーム">
+  <meta name="twitter:description" content="待合室で楽しく健康知識を身につけ、ペットを育てながら一緒に学びましょう。">
+  <meta name="twitter:image" content="https://xs282057.xsrv.jp/web-app-manifest-512x512.png">
+
+  <!-- =================================================================== -->
+  <!-- アイコン & PWA設定 (Icons & PWA Settings) -->
+  <!-- =================================================================== -->
+  <link rel="icon" href="favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#20AAD8">
+
+  <!-- =================================================================== -->
+  <!-- セキュリティヘッダー (Security Headers) -->
+  <!-- =================================================================== -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://use.typekit.net; style-src 'self' 'unsafe-inline' https://use.typekit.net https://cdnjs.cloudflare.com; img-src 'self' data: https://placehold.co; font-src 'self' https://use.typekit.net https://cdnjs.cloudflare.com; connect-src 'self' https://use.typekit.net; form-action 'self'; frame-ancestors 'none'; base-uri 'self';">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), midi=(), usb=(), autoplay=(), fullscreen=(), payment=()">
+
+  <!-- =================================================================== -->
+  <!-- フォント & スタイルシート (Fonts & Stylesheets) -->
+  <!-- =================================================================== -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <script>
+    (function(d) {
+      var config = { kitId: 'ukr7ung', scriptTimeout: 3000, async: true },
+      h = d.documentElement,
+      t = setTimeout(function() { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout),
+      tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+      h.className += " wf-loading";
+      tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+      tk.async = true;
+      tk.onload = tk.onreadystatechange = function() { a = this.readyState; if (f || a && a !== "complete" && a !== "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config); } catch (e) {} };
+      s.parentNode.insertBefore(tk, s)
+    })(document);
+  </script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* ========================================= */
+    /* ローディング画面のスタイル (修正済み) */
+    /* ========================================= */
+    #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f5f5f5;
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease;
+    }
+
+    #loading-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .loading-animation-container {
+        position: relative;
+        width: 90%;
+        max-width: 600px;
+        height: 500px;
+        background: transparent;
+        border-radius: 20px;
+        box-shadow: none;
+        padding: 20px;
+    }
+
+    .loading-scene {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        z-index: 1;
+    }
+
+    .loading-scene.active {
+        opacity: 1;
+    }
+
+    .loading-scene img {
+        max-width: 350px;
+        height: auto;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    /* 個別のシーンのアニメーション */
+    /* ▼▼▼ [修正点②] 1.pngのアニメーションを削除 ▼▼▼ */
+    #loading-scene1 img {
+        /* animation: float 3s ease-in-out infinite; */
+    }
+
+    #loading-scene2 img {
+        animation: lookUp 1.5s ease-in-out;
+    }
+
+    #loading-scene3 img {
+        animation: jump 1.2s ease-out;
+    }
+
+    #loading-scene4 img {
+        animation: leap 1.2s ease-out;
+    }
+
+    #loading-scene5 img {
+        animation: run 0.8s linear;
+    }
+
+    #loading-scene6 img {
+        animation: fadeInScale 1s ease-out;
+    }
+    /* ▼▼▼ [修正点③] 7.pngのアニメーションを変更 ▼▼▼ */
+    #loading-scene7 img {
+        animation: happyEnd 1.5s ease-out forwards;
+    }
+
+    /* アニメーション定義 */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    @keyframes lookUp {
+        0% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-10px) scale(1.05); }
+        100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes jump {
+        0% { transform: translateY(0) scale(1); }
+        30% { transform: translateY(-80px) scale(1.1); }
+        70% { transform: translateY(-80px) scale(1.1); }
+        100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes leap {
+        0% { transform: translateX(-150px) translateY(0) rotate(0deg); }
+        50% { transform: translateX(0) translateY(-60px) rotate(15deg); }
+        100% { transform: translateX(150px) translateY(0) rotate(0deg); }
+    }
+
+    @keyframes run {
+        0% { transform: translateX(-250px); }
+        100% { transform: translateX(250px); }
+    }
+
+    @keyframes fadeInScale {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    
+    /* ▼▼▼ [修正点③] ハッピーエンド用アニメーションを追加 ▼▼▼ */
+    @keyframes happyEnd {
+        0% { opacity: 0; transform: scale(0.8); }
+        70% { opacity: 1; transform: scale(1.15); } /* 少し大きくする */
+        100% { opacity: 1; transform: scale(1.15); } /* 大きさを維持 */
+    }
+
+    /* ▼▼▼ [修正点①] 水谷内科ロゴのスタイルを削除 ▼▼▼ */
+    /*
+    .loading-logo { ... }
+    */
+
+    .loading-progress-bar {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 250px;
+        height: 6px;
+        background: rgba(102, 126, 234, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        width: 0;
+        transition: width 0.4s ease;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+    }
+
+    .loading-text {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        opacity: 0;
+        animation: pulseText 2s ease-out 0.5s forwards;
+    }
+
+    @keyframes pulseText {
+        0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
+        50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+
+    /* メインコンテンツを最初は非表示 */
+    .gradient-bg, .mesh-gradient, .glow-orbs, .particles, .main-container {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    body.content-visible .gradient-bg,
+    body.content-visible .mesh-gradient,
+    body.content-visible .glow-orbs,
+    body.content-visible .particles,
+    body.content-visible .main-container {
+        opacity: 1;
+    }
+    
+    /* ローディング画面のレスポンシブ対応 */
+    @media (max-width: 768px) {
+        .loading-animation-container {
+            height: 500px;
+            padding: 15px;
+        }
+        .loading-scene img {
+            max-width: 280px;
+        }
+        .loading-text {
+            font-size: 1.2rem;
+            top: 30px;
+        }
+        .loading-spinner {
+            bottom: 80px;
+            width: 35px;
+            height: 35px;
+        }
+        
+        /* アニメーション範囲の調整 */
+        @keyframes jump {
+            0% { transform: translateY(0) scale(1); }
+            30% { transform: translateY(-50px) scale(1.1); }
+            70% { transform: translateY(-50px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        @keyframes leap {
+            0% { transform: translateX(-80px) translateY(0) rotate(0deg); }
+            50% { transform: translateX(0) translateY(-40px) rotate(15deg); }
+            100% { transform: translateX(80px) translateY(0) rotate(0deg); }
+        }
+        @keyframes run {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .loading-animation-container {
+            height: 450px;
+            padding: 10px;
+        }
+        .loading-scene img {
+            max-width: 220px;
+        }
+        .loading-text {
+            font-size: 1rem;
+            top: 20px;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .loading-progress-bar {
+            width: 200px;
+            bottom: 25px;
+        }
+        .loading-spinner {
+            bottom: 60px;
+            width: 30px;
+            height: 30px;
+        }
+        
+        /* アニメーション範囲の調整 */
+        @keyframes jump {
+            0% { transform: translateY(0) scale(1); }
+            30% { transform: translateY(-40px) scale(1.1); }
+            70% { transform: translateY(-40px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        @keyframes leap {
+            0% { transform: translateX(-60px) translateY(0) rotate(0deg); }
+            50% { transform: translateX(0) translateY(-30px) rotate(15deg); }
+            100% { transform: translateX(60px) translateY(0) rotate(0deg); }
+        }
+        @keyframes run {
+            0% { transform: translateX(-80px); }
+            100% { transform: translateX(80px); }
+        }
+    }
+
+    @media (max-width: 380px) {
+      .social-link-wrapper::before { top: -25px; right: 50%; transform: translateX(50%); }
+      .header-content { gap: 0.6rem; width: 88%; }
+      .clinic-name { font-size: 1.8rem; }
+      .page-title { font-size: 1.1rem; } 
+      .subtitle { font-size: 0.7rem; line-height: 1.2; }
+      .purpose-mini-title { font-size: 0.9rem; padding: 0.6rem 0.8rem; }
+      .purpose-mini-text { font-size: 0.7rem; line-height: 1.3; font-weight: 600; }
+      .staff-mini-header { padding: 0.6rem 0.8rem; justify-content: center; }
+      .staff-mini-title { font-size: 0.9rem; text-align: center; }
+      .game-tile { padding: 1.5rem; }
+      .tile-title { font-size: 1.7rem; }
+      .tile-description { font-size: 0.9rem; line-height: 1.5; }
+      .play-button { font-size: 0.9rem; padding: 0.7rem 1.8rem; }
+      .footer { padding: 2rem 1rem; }
+      
+      /* ローディング画面の調整 */
+      .loading-animation-container {
+          height: 380px;
+      }
+      .loading-scene img {
+          max-width: 180px;
+      }
+      .loading-text {
+          font-size: 0.9rem;
+          top: 15px;
+      }
+      .loading-spinner {
+          bottom: 50px;
+          width: 25px;
+          height: 25px;
+      }
+      
+      /* アニメーション範囲の調整 */
+      @keyframes jump {
+          0% { transform: translateY(0) scale(1); }
+          30% { transform: translateY(-30px) scale(1.1); }
+          70% { transform: translateY(-30px) scale(1.1); }
+          100% { transform: translateY(0) scale(1); }
+      }
+      @keyframes leap {
+          0% { transform: translateX(-50px) translateY(0) rotate(0deg); }
+          50% { transform: translateX(0) translateY(-25px) rotate(15deg); }
+          100% { transform: translateX(50px) translateY(0) rotate(0deg); }
+      }
+      @keyframes run {
+          0% { transform: translateX(-60px); }
+          100% { transform: translateX(60px); }
+      }
+    }
+
+    /* ========================================= */
+    /* 既存のスタイル */
+    /* ========================================= */
+    :root {
+      --primary: #20AAD8; /* 水色系 */
+      --secondary: #402C86; /* 紫系 */
+      --accent: #f472b6; /* ピンク系 */
+      --success: #10b981; /* 緑系 */
+      --warning: #f59e0b; /* オレンジ系 */
+      --danger: #ef4444; /* 赤系 */
+    }
+
+    /* 基本スタイルリセット */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ボディ全体のスタイル */
+    body {
+      font-family: vdl-megamaru, "Hiragino Sans", "ヒラギノ角ゴシック", "メイリオ", sans-serif; /* Adobe Fontを優先 */
+      min-height: 100vh;
+      background-color: #0a0a0a; /* より深い黒 */
+      color: #fff; /* テキストは白 */
+      overflow-x: hidden; /* 横スクロールバーを隠す */
+      position: relative; /* 背景要素の基準点 */
+      touch-action: pan-y; /* 縦スクロールを許可しつつ、ピンチズームを抑制 */
+    }
+    
+    /* 画像のコピー防止スタイル */
+    img {
+        pointer-events: none; /* マウスイベントを無効化 */
+        user-select: none; /* テキスト選択を無効化 */
+        -webkit-user-drag: none; /* ドラッグを無効化 (Chrome, Safari) */
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /* 動的グラデーション背景 */
+    .gradient-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      background: linear-gradient(125deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* メッシュグラデーション - より暗く */
+    .mesh-gradient {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 0.2) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 0.2) 0px, transparent 50%);
+    }
+    
+    /* 大小不同のグローバブル */
+    .glow-orbs {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        filter: blur(40px);
+        opacity: 0.6;
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        animation: float 20s infinite ease-in-out;
+    }
+
+    .orb1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(120, 119, 198, 0.7) 0%, transparent 70%); top: -250px; left: -250px; animation-delay: 0s; animation-duration: 25s; }
+    .orb2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(244, 114, 182, 0.7) 0%, transparent 70%); top: 50%; right: -150px; animation-delay: 5s; animation-duration: 20s; }
+    .orb3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(79, 172, 254, 0.7) 0%, transparent 70%); bottom: -100px; left: 30%; animation-delay: 10s; animation-duration: 15s; }
+    .orb4 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(102, 126, 234, 0.7) 0%, transparent 70%); top: 30%; left: 60%; animation-delay: 7s; animation-duration: 18s; }
+    .orb5 { width: 450px; height: 450px; background: radial-gradient(circle, rgba(247, 183, 49, 0.5) 0%, transparent 70%); bottom: -225px; right: 20%; animation-delay: 3s; animation-duration: 22s; }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(100px, -100px) scale(1.1); }
+        66% { transform: translate(-100px, 100px) scale(0.9); }
+    }
+
+    /* メインコンテナ */
+    .main-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 猫の顔型ヘッダー */
+    .header {
+      position: relative;
+      width: 750px;
+      height: 820px;
+      max-width: 90vw;
+      margin-bottom: 2rem;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .cat-header-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 60px rgba(79, 172, 254, 0.2));
+    }
+
+    .header-content {
+      position: absolute;
+      top: 55%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem; 
+    }
+
+    .title-section {
+      margin-bottom: 0; 
+    }
+    
+    /* ゲームの目的セクション */
+    .purpose-mini {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 0;
+      width: 100%;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    }
+
+    .purpose-mini:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(31, 38, 135, 0.3);
+    }
+
+    .purpose-mini-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #4facfe, #00c4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      cursor: pointer;
+      user-select: none;
+      padding: 1.2rem 1.5rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .purpose-mini-title .click-emoji {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      -webkit-text-fill-color: #4facfe !important;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    }
+
+    .purpose-mini-title:hover {
+      opacity: 0.9;
+    }
+
+    .purpose-mini-title::after {
+      content: '▼';
+      position: absolute;
+      right: 1.5rem;
+      transition: transform 0.3s ease;
+      font-size: 0.8em;
+      color: #00c4ff;
+    }
+
+    .purpose-mini-title.active::after {
+      transform: rotate(180deg);
+    }
+    
+    .purpose-icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        object-fit: contain;
+    }
+
+    .purpose-mini-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #2c3e50;
+      font-weight: 600;
+      text-shadow: none;
+      padding: 0 1.5rem;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .purpose-mini-text.show {
+      max-height: 200px;
+      opacity: 1;
+      padding: 1rem 1.5rem 1.5rem;
+    }
+    
+    /* スタッフセクション */
+    .staff-mini {
+      margin-top: 1rem;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      position: relative;
+    }
+
+    .staff-mini:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(31, 38, 135, 0.3);
+    }
+
+    .staff-mini-header {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .staff-mini-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .staff-mini-title .click-emoji {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      -webkit-text-fill-color: #ff6b7a !important;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    }
+
+    .staff-mini-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .staff-mini-content.show {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .staff-mini-text {
+      font-size: 0.9rem;
+      color: #2c3e50;
+      font-weight: 700;
+      line-height: 1.4;
+      text-shadow: none;
+      padding: 0 1.5rem 0.5rem;
+    }
+    
+    .click-emoji {
+      display: inline-block !important;
+      font-size: 1.5rem;
+      animation: gentle-bounce 2s ease-in-out infinite;
+      margin-left: 0.5rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      position: relative;
+      line-height: 1;
+      vertical-align: middle;
+      z-index: 10;
+      opacity: 1 !important;
+      visibility: visible !important;
+      color: inherit;
+      -webkit-text-fill-color: initial !important;
+    }
+
+    @keyframes gentle-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* スタッフボタン */
+    .staff-button {
+      display: inline-block;
+      margin: 0.8rem 1.5rem 1.5rem;
+      padding: 0.6rem 1.5rem;
+      background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .staff-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+    }
+    
+    .staff-button::after {
+        content: '✨';
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 1.2rem;
+        animation: sparkle 1.5s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+
+    .staff-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      animation: none;
+    }
+
+    .staff-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    /* モーダルスタイル */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 3rem;
+        max-width: 800px;
+        width: 90%;
+        max-height: 80vh;
+        overflow: auto;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.1);
+    }
+
+    .close-modal:hover {
+        color: #333;
+        background: rgba(0,0,0,0.2);
+        transform: rotate(90deg);
+    }
+
+    /* スライドショー in モーダル */
+    .modal .staff-title {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #191970; /* Midnight Blue */
+    }
+
+    .modal .photo-slideshow {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .modal .slideshow-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .modal .slide {
+        display: none;
+        animation: slideIn 0.5s ease-out;
+    }
+
+    .modal .slide.active {
+        display: block;
+    }
+
+    .modal .staff-photo-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        touch-action: none;
+        -webkit-touch-callout: none;
+    }
+
+    .modal .staff-photo {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        touch-action: none;
+        -webkit-touch-callout: none;
+    }
+
+    .modal .photo-caption {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #34495e;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .modal .slide-dots {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .modal .dot {
+        height: 12px;
+        width: 12px;
+        margin: 0 5px;
+        background-color: rgba(79, 172, 254, 0.3);
+        border-radius: 50%;
+        display: inline-block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .modal .dot.active, .modal .dot:hover {
+        background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+        transform: scale(1.2);
+    }
+
+    .modal .slide-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.9);
+        border: none;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        color: #4facfe;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+    .modal .slide-arrow:hover {
+        background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+    }
+    .modal .prev { left: 10px; }
+    .modal .next { right: 10px; }
+
+    .modal .staff-caption {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #34495e;
+        font-weight: 600;
+        line-height: 1.8;
+        margin-top: 2rem;
+    }
+
+    .modal .staff-caption span {
+        background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
+
+    /* フェードインアニメーション */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* クリニック名 */
+    .clinic-name {
+      font-size: 4rem; 
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+      background-size: 200% 200%; 
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 4s ease infinite;
+      margin-bottom: 0.2rem; 
+      position: relative; 
+      z-index: 1; 
+      text-shadow: 0 0 40px rgba(255,255,255,0.3); 
+      letter-spacing: 0.05em; 
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* ページタイトル */
+    .page-title {
+      font-size: 2.5rem; 
+      font-weight: 800;
+      color: #2c3e50; 
+      margin-bottom: 0.5rem; 
+      text-shadow: 
+        0 0 20px rgba(44, 62, 80, 0.3), 
+        0 2px 4px rgba(0,0,0,0.1); 
+      letter-spacing: 0.02em; 
+    }
+
+    .subtitle {
+      font-size: 1.3rem; 
+      color: #34495e; 
+      margin-bottom: 0; 
+      font-weight: 600; 
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    }
+
+    /* ゲームタイルコンテナ */
+    .game-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      width: 100%;
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+    }
+
+    /* ゲームタイル */
+    .game-tile {
+      background: rgba(25, 25, 25, 0.7); 
+      backdrop-filter: blur(20px); 
+      border-radius: 25px; 
+      padding: 2.5rem; 
+      text-align: center;
+      text-decoration: none;
+      color: white; 
+      transition: all 0.3s ease;
+      position: relative; 
+      overflow: hidden; 
+      animation: fadeInUp 0.8s ease-out; 
+      animation-fill-mode: both; 
+      min-height: 350px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      border: 1px solid rgba(255, 255, 255, 0.2); 
+    }
+
+    .game-tile:nth-child(1) { animation-delay: 0.1s; }
+    .game-tile:nth-child(2) { animation-delay: 0.2s; }
+    .game-tile:nth-child(3) { animation-delay: 0.3s; }
+    .game-tile:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .game-tile::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .game-tile:hover::before {
+      opacity: 1;
+    }
+
+    .game-tile::after {
+        content: '';
+        position: absolute;
+        top: -100%; left: -100%;
+        width: 200%; height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.2) 50%, 
+            transparent 70%
+        );
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+    }
+    .game-tile:hover::after {
+        top: -50%; left: -50%;
+    }
+
+    .game-tile:hover {
+      transform: translateY(-15px) scale(1.02); 
+      box-shadow: 
+        0 25px 50px rgba(0,0,0,0.5), 
+        inset 0 1px 1px rgba(255,255,255,0.2); 
+    }
+
+    /* 疾患別タイル */
+    .tile-hypertension {
+        background: linear-gradient(135deg, #ff6b7a 0%, #ff8a9b 100%);
+        border: 1px solid rgba(255, 107, 122, 0.8);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(255,107,122,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+    .tile-hypertension:hover {
+        background: linear-gradient(135deg, #ff5a6b 0%, #ff7988 100%);
+        border-color: rgba(255, 107, 122, 1);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,107,122,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+
+    .tile-hyperlipidemia {
+        background: linear-gradient(135deg, #4ecdc4 0%, #5dd9d2 100%);
+        border: 1px solid rgba(78, 205, 196, 0.8);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(78,205,196,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+    .tile-hyperlipidemia:hover {
+        background: linear-gradient(135deg, #3db8b0 0%, #4cc5be 100%);
+        border-color: rgba(78, 205, 196, 1);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(78,205,196,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+
+    .tile-diabetes {
+        background: linear-gradient(135deg, #ffb347 0%, #ffc266 100%);
+        border: 1px solid rgba(255, 179, 71, 0.8);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(255,179,71,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+    .tile-diabetes:hover {
+        background: linear-gradient(135deg, #ffa428 0%, #ffb347 100%);
+        border-color: rgba(255, 179, 71, 1);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,179,71,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+
+    .tile-hyperuricemia {
+        background: linear-gradient(135deg, #7b68ee 0%, #9370db 100%);
+        border: 1px solid rgba(123, 104, 238, 0.8);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(123,104,238,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+    .tile-hyperuricemia:hover {
+        background: linear-gradient(135deg, #6a5acd 0%, #8470ce 100%);
+        border-color: rgba(123, 104, 238, 1);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px rgba(123,104,238,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+
+    .tile-icon {
+      height: 80px; 
+      margin-bottom: 1.5rem; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      animation: iconFloat 3s ease-in-out infinite; 
+    }
+    .tile-icon img {
+      max-width: 80px;
+      max-height: 80px;
+      object-fit: contain; 
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); 
+    }
+
+    .tile-hypertension .tile-icon img { filter: drop-shadow(0 0 20px rgba(255,107,122,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+    .tile-hyperlipidemia .tile-icon img { filter: drop-shadow(0 0 20px rgba(78,205,196,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+    .tile-diabetes .tile-icon img { filter: drop-shadow(0 0 20px rgba(255,179,71,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+    .tile-hyperuricemia .tile-icon img { filter: drop-shadow(0 0 20px rgba(123,104,238,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+
+    @keyframes iconFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .tile-title {
+      font-size: 2.8rem; 
+      font-weight: 900; 
+      margin-bottom: 1rem; 
+      text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.8); 
+      letter-spacing: 0.05em; 
+    }
+
+    .tile-description {
+      font-size: 1.1rem; 
+      font-weight: 600; 
+      line-height: 1.8; 
+      margin-bottom: 1.5rem; 
+      color: #ffffff; 
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+      letter-spacing: 0.02em; 
+    }
+
+    .play-button {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+      color: white; 
+      padding: 1rem 2.5rem; 
+      border-radius: 50px; 
+      font-weight: 800; 
+      font-size: 1.15rem; 
+      transition: all 0.3s ease;
+      backdrop-filter: blur(15px); 
+      border: 2px solid rgba(255,255,255,0.5); 
+      margin-top: auto; 
+      position: relative; 
+      overflow: hidden; 
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+      letter-spacing: 0.05em; 
+    }
+
+    .play-button::before {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 0; height: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        transition: all 0.5s ease;
+        transform: translate(-50%, -50%);
+    }
+
+    .game-tile:hover .play-button {
+        background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%);
+        transform: scale(1.05); 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+        border-color: rgba(255,255,255,0.7); 
+    }
+    .game-tile:hover .play-button::before {
+        width: 250px; height: 250px; 
+    }
+
+    .tile-hypertension .play-button { background: linear-gradient(135deg, rgba(255,107,122,0.4) 0%, rgba(255,255,255,0.2) 100%); border-color: rgba(255,107,122,0.6); }
+    .tile-hypertension:hover .play-button { background: linear-gradient(135deg, rgba(255,107,122,0.5) 0%, rgba(255,255,255,0.3) 100%); border-color: rgba(255,107,122,0.8); }
+    .tile-hyperlipidemia .play-button { background: linear-gradient(135deg, rgba(78,205,196,0.4) 0%, rgba(255,255,255,0.2) 100%); border-color: rgba(78,205,196,0.6); }
+    .tile-hyperlipidemia:hover .play-button { background: linear-gradient(135deg, rgba(78,205,196,0.5) 0%, rgba(255,255,255,0.3) 100%); border-color: rgba(78,205,196,0.8); }
+    .tile-diabetes .play-button { background: linear-gradient(135deg, rgba(255,179,71,0.4) 0%, rgba(255,255,255,0.2) 100%); border-color: rgba(255,179,71,0.6); }
+    .tile-diabetes:hover .play-button { background: linear-gradient(135deg, rgba(255,179,71,0.5) 0%, rgba(255,255,255,0.3) 100%); border-color: rgba(255,179,71,0.8); }
+    .tile-hyperuricemia .play-button { background: linear-gradient(135deg, rgba(123,104,238,0.4) 0%, rgba(255,255,255,0.2) 100%); border-color: rgba(123,104,238,0.6); }
+    .tile-hyperuricemia:hover .play-button { background: linear-gradient(135deg, rgba(123,104,238,0.5) 0%, rgba(255,255,255,0.3) 100%); border-color: rgba(123,104,238,0.8); }
+
+    /* フッター */
+    .footer {
+      text-align: center;
+      padding: 3rem;
+      color: #2c3e50; 
+      font-size: 1rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.85) 100%); 
+      backdrop-filter: blur(20px);
+      border-radius: 30px; 
+      margin-top: 2rem; 
+      width: 100%;
+      max-width: 1000px;
+      border: 1px solid rgba(255,255,255,0.6); 
+      font-weight: 500;
+      overflow: visible;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link { 
+      display: inline-block;
+      color: #4facfe; 
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(79, 172, 254, 0.1); 
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(79, 172, 254, 0.3);
+      margin-bottom: 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .back-link:hover {
+      background: rgba(79, 172, 254, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(79,172,254,0.2);
+      border-color: rgba(79, 172, 254, 0.5);
+    }
+    
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #E4405F, #C13584, #F77737);
+      background-size: 200% 200%;
+      animation: instagramGradient 3s ease infinite, bounce 2s ease-in-out infinite;
+      border-radius: 20px;
+      color: white;
+      font-size: 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(225, 64, 95, 0.3);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    @keyframes instagramGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .social-link-wrapper::before {
+      content: 'NEW!';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff0080;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      animation: newBadgePulse 1s ease-in-out infinite;
+      z-index: 20;
+      box-shadow: 0 2px 10px rgba(255, 0, 128, 0.5);
+    }
+
+    @keyframes newBadgePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+      border-radius: 20px;
+      filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .social-link::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
+      transform: rotate(45deg);
+      animation: lightSweep 3s linear infinite;
+    }
+
+    @keyframes lightSweep {
+      0% { transform: rotate(45deg) translateX(-100%); }
+      100% { transform: rotate(45deg) translateX(100%); }
+    }
+
+    .social-link:hover {
+      transform: scale(1.15) translateY(-5px) rotate(5deg);
+      box-shadow: 0 15px 40px rgba(225, 64, 95, 0.6);
+      animation-play-state: paused;
+    }
+
+    .social-link:hover::before {
+      opacity: 0.8;
+    }
+
+    .instagram-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      padding: 0.5rem;
+    }
+
+    .instagram-cta {
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #E4405F, #C13584);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0 0 0.5rem 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .social-link-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-top: 25px;
+    }
+
+    .follow-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #ff6b7a, #4ecdc4);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(255, 107, 122, 0.3);
+      animation: tooltipFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes tooltipFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .follow-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: #4ecdc4;
+    }
+
+    .follow-tooltip::before {
+      content: '✨';
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      animation: sparkle 1.5s ease-in-out infinite;
+    }
+
+    .social-link-wrapper:hover .follow-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; 
+        z-index: 0; 
+    }
+
+    .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.6); 
+        border-radius: 50%;
+        animation: particleFloat 15s infinite linear; 
+    }
+
+    @keyframes particleFloat { 
+        0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+        10% { opacity: 1; } 
+        90% { opacity: 1; } 
+        100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+    }
+
+    /* レスポンシブデザイン */
+    @media (max-width: 768px) {
+      .header { width: 90vw; height: auto; }
+      .header-content { width: 80%; gap: 1rem; }
+      .clinic-name { font-size: 2.8rem; }
+      .page-title { font-size: 1.8rem; }
+      .subtitle { font-size: 1rem; }
+      .purpose-mini-title { font-size: 1.4rem; padding: 1rem 1.2rem; }
+      .purpose-mini-text { font-size: 0.85rem; }
+      .staff-mini-title { font-size: 1.2rem; }
+      .staff-mini-text { font-size: 0.8rem; }
+      .staff-button { font-size: 0.85rem; padding: 0.5rem 1.2rem; }
+      .modal-content { padding: 2rem; }
+      .modal .staff-title { font-size: 1.8rem; }
+      .modal .photo-caption { font-size: 1rem; }
+      .modal .staff-caption { font-size: 1rem; }
+      .game-tiles { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+      .tile-icon { height: 70px; }
+      .tile-icon img { max-width: 70px; max-height: 70px; }
+      .tile-title { font-size: 2.2rem; }
+      .tile-description { font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .main-container { padding: 1rem; }
+      .social-link-wrapper::before { top: -25px; right: 50%; transform: translateX(50%); }
+      .header { width: 95vw; height: auto; }
+      .header-content { width: 85%; gap: 0.8rem; }
+      .clinic-name { font-size: 2rem; } 
+      .page-title { font-size: 1.3rem; } 
+      .subtitle { font-size: 0.8rem; } 
+      .purpose-mini-title { font-size: 1.1rem; padding: 0.8rem 1rem; }
+      .purpose-mini-text { font-size: 0.75rem; line-height: 1.4; font-weight: 600; }
+      .staff-mini-header { padding: 0.8rem 1rem; justify-content: center; }
+      .staff-mini-title { font-size: 1rem; text-align: center; }
+      .click-emoji { font-size: 1.8rem !important; animation: bounce 1.5s ease-in-out infinite; display: inline-block !important; }
+      .click-emoji::before { content: ''; position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%); border-radius: 50%; transform: translate(-50%, -50%); animation: pulse-glow 2s ease-in-out infinite; z-index: -1; }
+      @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      @keyframes pulse-glow { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; } }
+      .modal-content { padding: 1.5rem; width: 95%;}
+      .close-modal { top:10px; right:10px; font-size: 1.5rem; width: 35px; height: 35px;}
+      .modal .staff-title { font-size: 1.5rem; margin-bottom: 1.5rem;}
+      .modal .slide-arrow { width: 35px; height: 35px; font-size: 16px; }
+      .modal .prev {left: 5px;}
+      .modal .next {right: 5px;}
+      .game-tiles { grid-template-columns: 1fr; }
+      .game-tile { min-height: 300px; padding: 2rem; }
+      .tile-icon { height: 60px; }
+      .tile-icon img { max-width: 60px; max-height: 60px; }
+      .tile-title { font-size: 1.9rem; }
+      .tile-description { font-size: 0.95rem; }
+      .play-button { font-size: 1rem; padding: 0.8rem 2rem; }
+      .footer { padding: 2.5rem 1.5rem; overflow: visible; }
+      .footer-links { flex-direction: column; gap: 1.5rem; }
+      .instagram-section { margin-top: 0.5rem; padding: 1rem; }
+      .instagram-cta { font-size: 0.8rem; margin-bottom: 0.3rem; }
+      .social-link { width: 50px; height: 50px; font-size: 1.8rem; }
+      .social-link-wrapper { margin-top: 25px; }
+    }
+    
+    @media (max-width: 380px) {
+      .header-content { gap: 0.6rem; }
+      .clinic-name { font-size: 2.2rem; }
+      .page-title { font-size: 1.5rem; }
+      .subtitle { font-size: 0.9rem; }
+      .game-tile { padding: 1.5rem; }
+      .tile-title { font-size: 1.8rem; }
+      .tile-description { font-size: 1rem; }
+    }
+  </style>
+
+  <!-- ▼▼▼ 構造化データ（更新済み） ▼▼▼ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalClinic",
+        "name": "水谷内科クリニック",
+        "image": "https://xs282057.xsrv.jp/web-app-manifest-512x512.png",
+        "@id": "https://mizutaninaika.com/#organization",
+        "url": "https://mizutaninaika.com/",
+        "telephone": "+81-587-59-8170",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "上奈良町栄110番地",
+          "addressLocality": "江南市",
+          "addressRegion": "愛知県",
+          "postalCode": "483-8259",
+          "addressCountry": "JP"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.3323,
+          "longitude": 136.8837
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "12:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Friday"
+            ],
+            "opens": "16:00",
+            "closes": "19:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "13:00"
+          }
+        ]
+      },
+      {
+        "@type": "Game",
+        "name": "水谷内科 ヘルスケアゲーム",
+        "url": "https://xs282057.xsrv.jp/",
+        "image": "https://xs282057.xsrv.jp/web-app-manifest-512x512.png",
+        "author": {
+          "@type": "Organization",
+          "name": "水谷内科クリニック",
+          "url": "https://mizutaninaika.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "水谷内科クリニック",
+          "url": "https://mizutaninaika.com/"
+        },
+        "description": "水谷内科がお届けするヘルスケアゲーム。待合室での時間を活用し、高血圧や糖尿病などの健康知識を楽しく学びながら、かわいいペットを育てましょう。",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires HTML5 support.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        },
+        "genre": ["Educational", "Health"],
+        "playMode": "SinglePlayer"
+      }
+    ]
+  }
+  </script>
+  <!-- ▲▲▲ ここまで ▲▲▲ -->
+
+</head>
+<body>
+  <!-- ローディング画面 -->
+  <div id="loading-screen">
+    <div class="loading-animation-container">
+      <div class="loading-text">
+        健康情報を取得中です...
+      </div>
+      
+      <div class="loading-scene active" id="loading-scene1">
+        <img src="images/1.png" alt="座っている猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene2">
+        <img src="images/2.png" alt="蜂を見ている猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene3">
+        <img src="images/3.png" alt="ジャンプする猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene4">
+        <img src="images/4.png" alt="横にジャンプする猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene5">
+        <img src="images/5.png" alt="走る猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene6">
+        <img src="images/6.png" alt="フレームワークと猫">
+      </div>
+      
+      <div class="loading-scene" id="loading-scene7">
+        <img src="images/7.png" alt="フレームワークと猫と蜂">
+      </div>
+      
+      <div class="loading-progress-bar">
+        <div class="loading-progress-fill"></div>
+      </div>
+      
+      <div class="loading-spinner"></div>
+      <!-- ▼▼▼ [修正点①] 水谷内科ロゴのHTMLを削除 ▼▼▼ -->
+    </div>
+  </div>
+
+  <!-- 既存のコンテンツ -->
+  <div class="gradient-bg"></div>
+  <div class="mesh-gradient"></div>
+  <div class="glow-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+    <div class="orb orb5"></div>
+  </div>
+  <div class="particles" id="particles"></div>
+  
+  <main class="main-container">
+    <header class="header">
+      <svg class="cat-header-svg" viewBox="0 0 545.01 594.72" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cat-header-title">
+        <title id="cat-header-title">猫の形のヘッダーデザイン</title>
+        <defs>
+          <linearGradient id="catBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.95)" /> <stop offset="100%" style="stop-color:rgba(248,250,252,0.9)" /> </linearGradient>
+          <linearGradient id="colorOverlay" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,107,122,0.08)" /> <stop offset="25%" style="stop-color:rgba(78,205,196,0.08)" /> <stop offset="50%" style="stop-color:rgba(255,179,71,0.08)" /> <stop offset="75%" style="stop-color:rgba(123,104,238,0.08)" /> <stop offset="100%" style="stop-color:rgba(255,255,255,0)" /> </linearGradient>
+          <filter id="innerGlow"> <feGaussianBlur stdDeviation="4" result="coloredBlur"/> <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge> </filter>
+          <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%"> <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <feOffset dx="0" dy="2" result="offsetblur"/> <feFlood flood-color="#000000" flood-opacity="0.2"/> <feComposite in2="offsetblur" operator="in"/> <feMerge> <feMergeNode/> <feMergeNode in="SourceGraphic"/> </feMerge> </filter>
+        </defs>
+        <g filter="url(#softShadow)">
+          <path d="M128.57,0c25.36,20.21,49.32,42.78,68.08,69.42l3.49,1.01c35.88-10.12,71.2-6.51,107.34-1,20.2-26.09,42.24-51.93,70.56-69.44h12.6c25.43,29.95,37.66,71.14,49.14,108.36,4.05,13.12,5.28,31.37,10.07,42.85,3.32,7.95,11.65,16.89,16.03,26.81,14.49,32.75,18.69,73.87,2.88,106.71,9.1,3.26,33.54,8.3,35.31,18.91.69,4.15-.08,4.12-3.87,3.9-15.52-.91-32.88-22.25-44.03-3.83l34.69,26.95c2.71,23.65-15.64.68-23.81-5.14-3.74-2.67-15.65-10.84-19.37-10.12-17.22,15.22-38.61,30.17-62.08,32.38l28.15,53.73c18.06,43,30.39,91.7,17.23,137.78,25.72-26.81,24.51-78.62,71.92-80.71,19.3-.85,54.62,20.6,37.58,40.31-13.02,15.06-24.72-3.57-32.78-4.98-20.46-3.59-23.66,25.95-30.93,39.54-14.35,26.81-32.56,48.49-65.09,51.05-6,.47-10.74-2.9-16.63-1.97-6.39,1.01-21.25,10.73-29.61,12.2h-224.28c-100.11-22.05-78.52-133.2-45.8-203.3,7.03-15.07,17.21-28.15,23.13-43.64-23.84-2.47-44-17.73-62.13-32.38-9.88-.44-37.01,31.21-43.7,24.79l3.66-10.18,31.22-25.91-6.13-9.4c-6.8-.55-38.88,20.66-41.34,8.92-1.8-8.58,34.54-16.74,35.25-20.21-15.29-33.62-10.77-75.78,4.61-108.71,16.61-35.56,20.51-54.7,32.48-91C82.09,54.35,94.65,24.55,113.45,0h15.12Z" fill="url(#catBg)" />
+          <path d="M128.57,0c25.36,20.21,49.32,42.78,68.08,69.42l3.49,1.01c35.88-10.12,71.2-6.51,107.34-1,20.2-26.09,42.24-51.93,70.56-69.44h12.6c25.43,29.95,37.66,71.14,49.14,108.36,4.05,13.12,5.28,31.37,10.07,42.85,3.32,7.95,11.65,16.89,16.03,26.81,14.49,32.75,18.69,73.87,2.88,106.71,9.1,3.26,33.54,8.3,35.31,18.91.69,4.15-.08,4.12-3.87,3.9-15.52-.91-32.88-22.25-44.03-3.83l34.69,26.95c2.71,23.65-15.64.68-23.81-5.14-3.74-2.67-15.65-10.84-19.37-10.12-17.22,15.22-38.61,30.17-62.08,32.38l28.15,53.73c18.06,43,30.39,91.7,17.23,137.78,25.72-26.81,24.51-78.62,71.92-80.71,19.3-.85,54.62,20.6,37.58,40.31-13.02,15.06-24.72-3.57-32.78-4.98-20.46-3.59-23.66,25.95-30.93,39.54-14.35,26.81-32.56,48.49-65.09,51.05-6,.47-10.74-2.9-16.63-1.97-6.39,1.01-21.25,10.73-29.61,12.2h-224.28c-100.11-22.05-78.52-133.2-45.8-203.3,7.03-15.07,17.21-28.15,23.13-43.64-23.84-2.47-44-17.73-62.13-32.38-9.88-.44-37.01,31.21-43.7,24.79l3.66-10.18,31.22-25.91-6.13-9.4c-6.8-.55-38.88,20.66-41.34,8.92-1.8-8.58,34.54-16.74,35.25-20.21-15.29-33.62-10.77-75.78,4.61-108.71,16.61-35.56,20.51-54.7,32.48-91C82.09,54.35,94.65,24.55,113.45,0h15.12Z" fill="url(#colorOverlay)" />
+          <path d="M128.57,0c25.36,20.21,49.32,42.78,68.08,69.42l3.49,1.01c35.88-10.12,71.2-6.51,107.34-1,20.2-26.09,42.24-51.93,70.56-69.44h12.6c25.43,29.95,37.66,71.14,49.14,108.36,4.05,13.12,5.28,31.37,10.07,42.85,3.32,7.95,11.65,16.89,16.03,26.81,14.49,32.75,18.69,73.87,2.88,106.71,9.1,3.26,33.54,8.3,35.31,18.91.69,4.15-.08,4.12-3.87,3.9-15.52-.91-32.88-22.25-44.03-3.83l34.69,26.95c2.71,23.65-15.64.68-23.81-5.14-3.74-2.67-15.65-10.84-19.37-10.12-17.22,15.22-38.61,30.17-62.08,32.38l28.15,53.73c18.06,43,30.39,91.7,17.23,137.78,25.72-26.81,24.51-78.62,71.92-80.71,19.3-.85,54.62,20.6,37.58,40.31-13.02,15.06-24.72-3.57-32.78-4.98-20.46-3.59-23.66,25.95-30.93,39.54-14.35,26.81-32.56,48.49-65.09,51.05-6,.47-10.74-2.9-16.63-1.97-6.39,1.01-21.25,10.73-29.61,12.2h-224.28c-100.11-22.05-78.52-133.2-45.8-203.3,7.03-15.07,17.21-28.15,23.13-43.64-23.84-2.47-44-17.73-62.13-32.38-9.88-.44-37.01,31.21-43.7,24.79l3.66-10.18,31.22-25.91-6.13-9.4c-6.8-.55-38.88,20.66-41.34,8.92-1.8-8.58,34.54-16.74,35.25-20.21-15.29-33.62-10.77-75.78,4.61-108.71,16.61-35.56,20.51-54.7,32.48-91C82.09,54.35,94.65,24.55,113.45,0h15.12Z" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" filter="url(#innerGlow)" />
+        </g>
+      </svg>
+      
+      <div class="header-content">
+        <div class="title-section">
+          <h1 class="clinic-name">水谷内科</h1>
+          <h2 class="page-title">ヘルスケアゲーム</h2>
+          <p class="subtitle">楽しく学んで、健康な毎日を</p>
+        </div>
+        
+        <section class="purpose-mini" aria-labelledby="purposeTitle">
+          <h3 class="purpose-mini-title" id="purposeTitle" aria-expanded="false" aria-controls="purposeText">
+            <img src="images/quiz.png" alt="クイズアイコン" class="purpose-icon" onerror="this.onerror=null; this.src='https://placehold.co/26x26/4facfe/FFFFFF?text=Q&font=noto';">
+            ゲームの目的 <span class="click-emoji" aria-hidden="true">👆</span>
+          </h3>
+          <p class="purpose-mini-text" id="purposeText" role="region">
+            待合室でのお時間を有効活用！<br>
+            楽しみながら健康知識を身につけ、<br>
+            ペットを育てながら一緒に学びましょう
+          </p>
+        </section>
+        
+        <section class="staff-mini" id="staffMini" aria-labelledby="staffMiniTitle">
+          <div class="staff-mini-header" aria-expanded="false" aria-controls="staffContent">
+            <h4 class="staff-mini-title" id="staffMiniTitle">私たちがサポートします <span class="click-emoji" aria-hidden="true">👆</span></h4>
+          </div>
+          <div class="staff-mini-content" id="staffContent" role="region">
+            <p class="staff-mini-text">
+              水谷内科スタッフ一同<br>
+              笑顔で皆様の健康をサポート！😊
+            </p>
+            <button class="staff-button" onclick="openModal(event)">
+              📸 スタッフ写真を見る ▶
+            </button>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <nav class="game-tiles" aria-label="ゲーム選択">
+      <a href="quizzes/game_hypertention.html" class="game-tile tile-hypertension">
+        <div class="tile-icon">
+            <img src="images/cardiology.png" alt="高血圧アイコン" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FF6B7A/FFFFFF?text=❤️&font=noto';">
+        </div>
+        <h3 class="tile-title">高血圧</h3>
+        <p class="tile-description">
+          血圧の正しい知識を学んで、<br>
+          健康な心臓を保ちましょう
+        </p>
+        <span class="play-button">ゲームを始める ▶</span>
+      </a>
+
+      <a href="quizzes/game_hyperlipidemia.html" class="game-tile tile-hyperlipidemia">
+        <div class="tile-icon">
+            <img src="images/hyperlipidemia.png" alt="高脂血症アイコン" onerror="this.onerror=null; this.src='https://placehold.co/80x80/4ECDC4/FFFFFF?text=🩸&font=noto';">
+        </div>
+        <h3 class="tile-title">高脂血症</h3>
+        <p class="tile-description">
+          コレステロールについて理解して、<br>
+          血管の健康を守りましょう
+        </p>
+        <span class="play-button">ゲームを始める ▶</span>
+      </a>
+
+      <a href="quizzes/game_diabetes.html" class="game-tile tile-diabetes">
+        <div class="tile-icon">
+            <img src="images/endocrinology.png" alt="糖尿病アイコン" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FFB347/FFFFFF?text=🍬&font=noto';">
+        </div>
+        <h3 class="tile-title">糖尿病</h3>
+        <p class="tile-description">
+          血糖コントロールのコツを掴んで、<br>
+          合併症を予防しましょう
+        </p>
+        <span class="play-button">ゲームを始める ▶</span>
+      </a>
+      
+      <a href="quizzes/game_hyperuricemia.html" class="game-tile tile-hyperuricemia">
+        <div class="tile-icon">
+             <img src="images/hyperuricemia.png" alt="高尿酸血症アイコン" onerror="this.onerror=null; this.src='https://placehold.co/80x80/7B68EE/FFFFFF?text=🦶&font=noto';">
+        </div>
+        <h3 class="tile-title">高尿酸血症</h3>
+        <p class="tile-description">
+          プリン体との上手な付き合い方で、<br>
+          痛風発作を防ぎましょう
+        </p>
+        <span class="play-button">ゲームを始める ▶</span>
+      </a>
+    </nav>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://mizutaninaika.com/" class="back-link">⬅ 水谷内科HPに戻る</a>
+        <div class="instagram-section">
+          <p class="instagram-cta">最新情報をお届け中！</p>
+          <div class="social-link-wrapper">
+            <a href="https://www.instagram.com/mizutaninaika.clinic" target="_blank" rel="noopener noreferrer" aria-label="Instagram公式アカウント" class="social-link">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            <div class="follow-tooltip" role="tooltip">フォローしてね💕</div>
+          </div>
+        </div>
+      </div>
+      <p>&copy; 2024 水谷内科クリニック. All Rights Reserved.</p>
+    </footer>
+  </main>
+
+  <div id="staffModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="staffModalTitle">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal(event)" aria-label="閉じる">&times;</button>
+      <h2 id="staffModalTitle" class="staff-title">検診異常がみつかったら水谷内科へ</h2>
+      
+      <div class="photo-slideshow" aria-roledescription="carousel">
+        <div class="slideshow-container">
+            <div class="slide active" role="group" aria-roledescription="slide" aria-label="1 of 3">
+                <div class="staff-photo-wrapper">
+                    <img src="images/129.jpg" alt="院長の写真" class="staff-photo" onerror="this.onerror=null; this.src='https://placehold.co/500x350/cccccc/000000?text=画像準備中';">
+                </div>
+                <p class="photo-caption">院長<br>「患者様に寄り添った医療を心がけています。」</p>
+            </div>
+            <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+                <div class="staff-photo-wrapper">
+                    <img src="images/096.jpg" alt="看護師の写真" class="staff-photo" onerror="this.onerror=null; this.src='https://placehold.co/500x350/cccccc/000000?text=画像準備中';">
+                </div>
+                <p class="photo-caption">看護師<br>「安心して治療を受けていただけるようサポートします。」</p>
+            </div>
+            <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+                <div class="staff-photo-wrapper">
+                    <img src="images/022.jpg" alt="受付の写真" class="staff-photo" onerror="this.onerror=null; this.src='https://placehold.co/500x350/cccccc/000000?text=画像準備中';">
+                </div>
+                <p class="photo-caption">受付<br>「笑顔でお迎えし、丁寧な対応を心がけています。」</p>
+            </div>
+        </div>
+        
+        <button class="slide-arrow prev" onclick="changeSlide(-1)" aria-label="前のスライドへ">&#10094;</button>
+        <button class="slide-arrow next" onclick="changeSlide(1)" aria-label="次のスライドへ">&#10095;</button>
+      </div>
+
+      <div class="slide-dots" role="tablist" aria-label="スライドナビゲーション">
+        <button class="dot active" onclick="currentSlide(1)" role="tab" aria-selected="true" aria-controls="slide1"></button>
+        <button class="dot" onclick="currentSlide(2)" role="tab" aria-selected="false" aria-controls="slide2"></button>
+        <button class="dot" onclick="currentSlide(3)" role="tab" aria-selected="false" aria-controls="slide3"></button>
+      </div>
+      
+      <p class="staff-caption">
+        私たちは<span>「地域の皆様の健康を第一に」</span>をモットーに、<br>
+        温かい心と確かな技術で、皆様の健康な毎日を応援します。
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // ▼▼▼ [修正点③] ローディングアニメーション制御のJavaScriptを修正 ▼▼▼
+    (function() {
+        let currentScene = 1;
+        const totalScenes = 7;
+        const sceneDuration = 1500; // 各シーンの表示時間
+        let animationInterval;
+
+        function showScene(sceneNumber) {
+            // すべてのシーンを非表示
+            document.querySelectorAll('.loading-scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+            
+            // 指定されたシーンを表示
+            const targetScene = document.getElementById(`loading-scene${sceneNumber}`);
+            if (targetScene) {
+                targetScene.classList.add('active');
+            }
+            
+            // プログレスバーを更新
+            updateProgress(sceneNumber);
+        }
+        
+        function updateProgress(sceneNumber) {
+            const progressFill = document.querySelector('.loading-progress-fill');
+            const percentage = (sceneNumber / totalScenes) * 100;
+            progressFill.style.width = percentage + '%';
+        }
+        
+        function nextScene() {
+            currentScene++;
+            showScene(currentScene);
+
+            if (currentScene >= totalScenes) {
+                // アニメーション終了
+                clearInterval(animationInterval);
+                // 最後のシーンのアニメーション(1.5s)と追加の待機時間(1s)後に画面遷移
+                setTimeout(() => {
+                    transitionToMainContent();
+                }, 2500); // 1500ms (animation) + 1000ms (delay)
+            }
+        }
+        
+        function transitionToMainContent() {
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            // ローディング画面をフェードアウト
+            loadingScreen.classList.add('fade-out');
+            
+            // メインコンテンツを表示
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                document.body.classList.add('content-visible');
+                // パーティクル生成を実行
+                generateParticles();
+            }, 500); // fade-out時間
+        }
+        
+        function startAnimation() {
+            animationInterval = setInterval(nextScene, sceneDuration);
+        }
+        
+        // ページ読み込み時にアニメーション開始
+        window.addEventListener('DOMContentLoaded', () => {
+            showScene(1);
+            updateProgress(1);
+            // 少し待ってからアニメーション開始
+            setTimeout(startAnimation, 500);
+        });
+    })();
+
+    // パーティクル生成（ローディング後に実行）
+    function generateParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const numParticles = 50;
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            fragment.appendChild(particle);
+        }
+        particlesContainer.appendChild(fragment);
+    }
+    
+    // モーダル制御
+    const modal = document.getElementById('staffModal');
+    function openModal(event) {
+      event.stopPropagation();
+      modal.classList.add('active');
+      modal.querySelector('.close-modal').focus();
+    }
+    function closeModal(event) {
+      event.stopPropagation();
+      modal.classList.remove('active');
+    }
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal(event);
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal(event);
+        }
+    });
+
+    // スライドショー制御
+    let slideIndex = 1;
+    const slides = document.querySelectorAll("#staffModal .slide");
+    const dots = document.querySelectorAll("#staffModal .dot");
+    
+    function showSlides(n) {
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+
+      slides.forEach(slide => slide.classList.remove("active"));
+      dots.forEach(dot => {
+          dot.classList.remove("active");
+          dot.setAttribute("aria-selected", "false");
+      });
+
+      slides[slideIndex-1].classList.add("active");
+      dots[slideIndex-1].classList.add("active");
+      dots[slideIndex-1].setAttribute("aria-selected", "true");
+    }
+    
+    function changeSlide(n) { showSlides(slideIndex += n); }
+    function currentSlide(n) { showSlides(slideIndex = n); }
+    showSlides(slideIndex);
+
+    // アコーディオン機能
+    function setupAccordion(triggerId, contentId) {
+        const triggerEl = document.getElementById(triggerId);
+        const contentEl = document.getElementById(contentId);
+        if (triggerEl && contentEl) {
+            triggerEl.addEventListener('click', () => {
+                const isExpanded = triggerEl.getAttribute('aria-expanded') === 'true';
+                triggerEl.setAttribute('aria-expanded', !isExpanded);
+                triggerEl.classList.toggle('active');
+                contentEl.classList.toggle('show');
+            });
+        }
+    }
+    
+    // DOMContentLoadedイベントでアコーディオンを設定
+    document.addEventListener('DOMContentLoaded', () => {
+        setupAccordion('purposeTitle', 'purposeText');
+        
+        const staffMiniEl = document.getElementById('staffMini');
+        if (staffMiniEl) {
+            staffMiniEl.addEventListener('click', (event) => {
+                if (event.target.closest('.staff-button')) { return; }
+                const trigger = staffMiniEl.querySelector('.staff-mini-header');
+                const content = staffMiniEl.querySelector('.staff-mini-content');
+                const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                trigger.setAttribute('aria-expanded', !isExpanded);
+                content.classList.toggle('show');
+            });
+        }
+    });
+
+    // --- ズーム防止 & 画像保護 ---
+    document.addEventListener('touchstart', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+    }, false);
+    document.addEventListener('wheel', (e) => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+    document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+  </script>
+</body>
+</html>
