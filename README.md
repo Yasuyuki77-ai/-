@@ -1,1 +1,1 @@
-# -健康ゲームです。
+# health care game
