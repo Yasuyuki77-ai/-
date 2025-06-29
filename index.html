@@ -36,13 +36,14 @@
   <!-- =================================================================== -->
   <!-- セキュリティヘッダー (Security Headers) -->
   <!-- =================================================================== -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://use.typekit.net; style-src 'self' 'unsafe-inline' https://use.typekit.net https://cdnjs.cloudflare.com; img-src 'self' data: https://placehold.co; font-src 'self' https://use.typekit.net https://cdnjs.cloudflare.com; connect-src 'self' https://use.typekit.net; form-action 'self'; frame-ancestors 'none'; base-uri 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://use.typekit.net; style-src 'self' 'unsafe-inline' https://use.typekit.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https://placehold.co; font-src 'self' https://use.typekit.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://use.typekit.net; form-action 'self'; frame-ancestors 'none'; base-uri 'self';">
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), midi=(), usb=(), autoplay=(), fullscreen=(), payment=()">
 
   <!-- =================================================================== -->
   <!-- フォント & スタイルシート (Fonts & Stylesheets) -->
   <!-- =================================================================== -->
   <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <script>
     (function(d) {
       var config = { kitId: 'ukr7ung', scriptTimeout: 3000, async: true },
@@ -403,7 +404,7 @@
 
     /* ボディ全体のスタイル */
     body {
-      font-family: vdl-megamaru, "Hiragino Sans", "ヒラギノ角ゴシック", "メイリオ", sans-serif; /* Adobe Fontを優先 */
+      font-family: 'Noto Sans JP', vdl-megamaru, "Hiragino Sans", "ヒラギノ角ゴシック", "メイリオ", sans-serif; /* Google Fontを優先 */
       min-height: 100vh;
       background-color: #0a0a0a; /* より深い黒 */
       color: #fff; /* テキストは白 */
@@ -1000,14 +1001,17 @@
 
     /* ページタイトル */
     .page-title {
-      font-size: 2.5rem; 
+      font-size: 2.5rem;
       font-weight: 800;
-      color: #2c3e50; 
-      margin-bottom: 0.5rem; 
-      text-shadow: 
-        0 0 20px rgba(44, 62, 80, 0.3), 
-        0 2px 4px rgba(0,0,0,0.1); 
-      letter-spacing: 0.02em; 
+      background: linear-gradient(135deg, #20AAD8 0%, #6BFFB9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      text-shadow:
+        0 0 20px rgba(44, 62, 80, 0.3),
+        0 2px 4px rgba(0,0,0,0.1);
+      letter-spacing: 0.02em;
     }
 
     .subtitle {
